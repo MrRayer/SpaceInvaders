@@ -1,0 +1,23 @@
+﻿<Window x:Class="SpaceInvadersFV.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SpaceInvadersFV"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800"
+        KeyDown="KeyIsDown"
+        KeyUp="KeyIsUp"
+        Name="MW">
+    <Grid>
+        <Canvas Name="GameWindow" Background="Black" Height="600" Width="800">
+            <Rectangle Height="1000" Canvas.Left="399.5" Stroke="white" Canvas.Top="-100" Width="1"/>
+            <Rectangle Height="1" Canvas.Left="-100" Stroke="white" Canvas.Top="299.5" Width="1000"/>
+        </Canvas>
+        <Grid Height="600" Width="800">
+            <Border BorderBrush="Gray" BorderThickness="7" Height="600" Width="800">
+                <Border BorderBrush="#333333" BorderThickness="3"/>
+            </Border>            
+        </Grid>
+    </Grid>
+</Window>
