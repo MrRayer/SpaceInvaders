@@ -24,30 +24,40 @@ namespace SpaceInvadersFV
         public static string projectFolder = AppDomain.CurrentDomain.BaseDirectory;
         public static NamedRectangle playerShape = new(50, 50, "player");   //first two int controll the size of the player
         public static NamedRectangle goalShape = new(1, 800, "goal");
+        public static NamedRectangle bulletPlaceholderLeft = new(40, 10, "BPHleft");
+        public static NamedRectangle bulletPlaceholderRight = new(40, 10, "BPHright");
         static public bool leftFlag = false;
         static public bool rightFlag = false;
+        static public bool fireFlag = false;
         static public EntityController EC = new();
-        static public LoadLvl Lvl1 = new LoadLvl(18, 3, 20, 20); //first int controlls the ammount of enemies, second int controlls the ammount of rows
-                                                                //third and fourth controlls the size of the enemy
+        static public LoadLvl Lvl1 = new LoadLvl(28, 3, 20, 30,1); //first int controlls the ammount of enemies, second int controlls the ammount of rows
+                                                                //third and fourth controlls the size of the enemy, fifth is the health of the alien
         public MainWindow()
         {
             InitializeComponent();
             Setup.LoadPlayer(GameWindow,playerShape);
-            EC.LoadPlayer(GameWindow);
             Setup.LoadGoal(GameWindow,goalShape);
-            EC.LoadGoal(GameWindow);
             Mainloop.Loop(GameWindow);
         }
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.A) leftFlag = true;
             if (e.Key == Key.D) rightFlag = true;
+            if (e.Key == Key.W) fireFlag = true;
+            if (e.Key == Key.H) DeleteAllEnemies();
         }
-
         private void KeyIsUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.A) leftFlag = false;
             if (e.Key == Key.D) rightFlag = false;
+            if (e.Key == Key.W) fireFlag = false;
+        }
+        private void DeleteAllEnemies()
+        {
+            foreach(Objects.Entities.BasicAlien alien in EC.enemyList)
+            {
+                alien.shape.Fill = Brushes.Green;
+            }
         }
     }
 }

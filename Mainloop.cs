@@ -17,11 +17,14 @@ namespace SpaceInvadersFV
         {
             if (MainWindow.leftFlag) Player.MoveLeft(game);
             if (MainWindow.rightFlag) Player.MoveRight(game);
+            if (MainWindow.fireFlag && Player.fireDelayFlag) Player.Fire(game);
             if (EnemyMovement.readyToMove)
             {
                 MainWindow.Lvl1.Load(game);
                 EnemyMovement.move(game);
             }
+            FBulletMovement.Move(game);
+            Objects.Behavior.CollisionCheck.Check(game);
             await Task.Delay(timeBetweenLoops);
             Loop(game);
         }

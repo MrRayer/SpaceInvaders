@@ -28,6 +28,35 @@ namespace SpaceInvadersFV
             Canvas.SetLeft(player.GetShape(), 400 - player.GetWidth() / 2);
             game.RegisterName(player.GetName(), player.GetShape());
             game.Children.Add(player.GetShape());
+            MainWindow.EC.LoadPlayer(game);
+            LoadBPH(game, false);
+            LoadBPH(game, true);
+        }
+        public static void LoadBPH(Canvas game, bool side)
+        {
+            try
+            {
+                ImageBrush bulletOffSkin = new ImageBrush();
+                bulletOffSkin.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(MainWindow.projectFolder, @"..\..\..\lib\img\SidewinderOff.png")));
+                MainWindow.bulletPlaceholderLeft.GetShape().Fill = bulletOffSkin;
+                MainWindow.bulletPlaceholderRight.GetShape().Fill = bulletOffSkin;
+            }
+            catch { MainWindow.bulletPlaceholderLeft.GetShape().Fill = Brushes.White; MainWindow.bulletPlaceholderRight.GetShape().Fill = Brushes.White; }
+            if (side)
+            {
+                Canvas.SetTop(MainWindow.bulletPlaceholderLeft.GetShape(), Canvas.GetTop(MainWindow.EC.player));
+                Canvas.SetLeft(MainWindow.bulletPlaceholderLeft.GetShape(), Canvas.GetLeft(MainWindow.EC.player) + 5);
+                game.RegisterName(MainWindow.bulletPlaceholderLeft.GetName(), MainWindow.bulletPlaceholderLeft.GetShape());
+                game.Children.Add(MainWindow.bulletPlaceholderLeft.GetShape());
+            }
+            else
+            {
+                Canvas.SetTop(MainWindow.bulletPlaceholderRight.GetShape(), Canvas.GetTop(MainWindow.EC.player));
+                Canvas.SetLeft(MainWindow.bulletPlaceholderRight.GetShape(), Canvas.GetLeft(MainWindow.EC.player) + MainWindow.playerShape.GetWidth() - 15);
+                game.RegisterName(MainWindow.bulletPlaceholderRight.GetName(), MainWindow.bulletPlaceholderRight.GetShape());
+                game.Children.Add(MainWindow.bulletPlaceholderRight.GetShape());
+            }
+            MainWindow.EC.LoadPlaceholder(game, side);
         }
         public static void LoadGoal(Canvas game, NamedRectangle goal)
         {
@@ -36,25 +65,7 @@ namespace SpaceInvadersFV
             Canvas.SetLeft(goal.GetShape(), 0);
             game.RegisterName(goal.GetName(), goal.GetShape());
             game.Children.Add(goal.GetShape());
+            MainWindow.EC.LoadGoal(game);
         }
-            /*
-            while(placedEnemies < levelEnemies)
-            {
-                Trace.WriteLine($"DEBUG --- Placing enemies {placedEnemies}, enemies to place {levelEnemies}");
-                int height;
-                if (heightFlag) height = 15 + shape.GetHeight() * placedInColumn + 10 * placedInColumn;
-                else height = 15 + shape.GetHeight()/2 + shape.GetHeight()*placedInColumn + 10*placedInColumn;
-                SpawnEnemy(game, shape, height, 785-shape.GetWidth());
-                MainWindow.EC.LoadEnemy(game, $"alien_{placedEnemies}");
-                placedInColumn++;
-                placedEnemies++;
-                if (placedInColumn == rows)
-                {
-                    await Task.Delay(34);
-                    if (heightFlag) { placedInColumn = 0; heightFlag = false; }
-                    else { placedInColumn = 1; heightFlag = true; }
-                }
-            }
-            */
     }
 }

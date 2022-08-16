@@ -12,6 +12,8 @@ namespace SpaceInvadersFV
     public class EntityController
     {
         public Rectangle? player;
+        public Rectangle? bulletPlaceholderLeft;
+        public Rectangle? bulletPlaceholderRight;
         public Rectangle? goal;
         public List<BasicAlien>? enemyList = new List<BasicAlien>();
         public List<Rectangle>? fBulletList = new List<Rectangle>();
@@ -32,12 +34,31 @@ namespace SpaceInvadersFV
             Rectangle Goal = _goal as Rectangle;
             goal = Goal;
         }
-        public void LoadEnemy(Canvas game, string name)
+        public void LoadEnemy(Canvas game, string name, int health)
         {
             Object _enemy = game.FindName(name);
             Rectangle Enemy = _enemy as Rectangle;
-            BasicAlien enemy = new BasicAlien(Enemy,3);
+            BasicAlien enemy = new BasicAlien(Enemy, health);
             enemyList.Add(enemy);
+        }
+        public void LoadFBullet(Canvas game, string name)
+        {
+            Object _enemy = game.FindName(name);
+            Rectangle Enemy = _enemy as Rectangle;
+            fBulletList.Add(Enemy);
+        }
+        public void LoadPlaceholder(Canvas game,bool side)
+        {
+            if (side)
+            {
+                Object _Left = game.FindName("BPHleft");
+                bulletPlaceholderLeft = _Left as Rectangle;
+            }
+            else
+            {
+                Object _Right = game.FindName("BPHright");
+                bulletPlaceholderRight = _Right as Rectangle;
+            }
         }
     }
 }

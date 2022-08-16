@@ -11,10 +11,10 @@ namespace SpaceInvadersFV.Objects.Behavior
 {
     internal static class EnemyMovement
     {
-        public static int moveAmmount = 20;
+        public static int moveAmmount = 30;
         static bool horizontalFlag = false;
         public static bool readyToMove = true;
-        public static int timeBetweenMoves = 300;
+        public static int timeBetweenMoves = 500;
 
         public async static void move(Canvas game)
         {
